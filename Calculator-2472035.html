@@ -2,94 +2,124 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <style>
-        h3{
+        h3 {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
+    <!-- Penjumlahan -->
     <div class="penjumlahan">
         <h3>Penjumlahan</h3>
-        <button onclick="random()" id="refresh">Refresh</button>
-        <br/><br/>
-        <span>
-            <input type="number" id="jum1"> + <input type="number" id="jum2"> =
-            <input width="100px" id="hasiljum">
-            <button onclick="cekjum()" id="cekjum">Cek Hasil</button> 
-        </span>
+        <button onclick="randomjum()">Refresh</button><br/><br/>
+        <input type="number" id="jum1"> + <input type="number" id="jum2"> =
+        <input id="hasiljum">
+        <button onclick="cekjum()">Cek Hasil</button>
+        <p id="outputjum"></p>
     </div>
-    <script>
-        function random() {
-            let jum1 = Math.floor(Math.random() * 16);
-            let jum2 = Math.floor(Math.random() * 16);
-            document.getElementById("jum1").value = jum1
-            document.getElementById("jum2").value = jum2
-        }
-    </script>
 
-
+    <!-- Pengurangan -->
     <div class="pengurangan">
         <h3>Pengurangan</h3>
-        <button onclick="random()" id="refresh">Refresh</button>
-        <br/><br/>
-        <span>
-            <input type="number" id="kur1"> - <input type="number" id="kur2"> =
-            <input width="100px" id="hasiljum">
-            <button onclick="cekjum()" id="cekjum">Cek Hasil</button> 
-        </span>
+        <button onclick="randomkur()">Refresh</button><br/><br/>
+        <input type="number" id="kur1"> - <input type="number" id="kur2"> =
+        <input id="hasilkur">
+        <button onclick="cekkur()">Cek Hasil</button>
+        <p id="outputkur"></p>
     </div>
-    <script>
-        function random() {
-            let jum1 = Math.floor(Math.random() * 16);
-            let jum2 = Math.floor(Math.random() * 16);
-            document.getElementById("jum1").value = jum1
-            document.getElementById("jum2").value = jum2
-        }
-    </script>
 
-
-
-    <div class="pengurangan">
-        <h3>Pengurangan</h3>
-        <button onclick="random()" id="refresh">Refresh</button>
-        <br/><br/>
-        <span>
-            <input type="number" id="jum1"> - <input type="number" id="jum2"> =
-            <input width="100px" id="hasiljum">
-            <button onclick="cekjum()" id="cekjum">Cek Hasil</button> 
-        </span>
+    <!-- Nilai Bilangan -->
+    <div class="NilaiBilangan">
+        <h3>Nilai Bilangan</h3>
+        <button onclick="randombil()">Refresh</button><br/><br/>
+        <input id="hasilbil"> =
+        <input type="number" id="bil1"> + <input type="number" id="bil2"> + <input type="number" id="bil3">
+        <button onclick="cekbil()">Cek Hasil</button>
+        <p id="outputbil"></p>
     </div>
-    <script>
-        function random() {
-            let jum1 = Math.floor(Math.random() * 16);
-            let jum2 = Math.floor(Math.random() * 16);
-            document.getElementById("jum1").value = jum1
-            document.getElementById("jum2").value = jum2
-        }
-    </script>
 
-    
-    <br/><br/>
-    <p>
-    <div class="output">
-        <script>
-            function cekjum() {
-                if (hasiljum = (jum1 + jum2)) {
-                    result = "Jawaban Benar!!!"
-                } else if (hasiljum != (jum1 + jum2)){
-                    result = "Jawaban Salah"
-                } else {
-                    result = "Tidak Ada Jawaban!!! Isi Terlebih Dahulu"
-                }
-                document.
+    <script>
+        function randomjum() {
+            const jum1 = Math.floor(Math.random() * 16);
+            const jum2 = Math.floor(Math.random() * 16);
+            document.getElementById("jum1").value = jum1;
+            document.getElementById("jum2").value = jum2;
+            document.getElementById("hasiljum").value = "";
+            document.getElementById("outputjum").innerText = "";
+        }
+
+        function cekjum() {
+            const jum1 = Number(document.getElementById("jum1").value);
+            const jum2 = Number(document.getElementById("jum2").value);
+            const hasil = Number(document.getElementById("hasiljum").value);
+            const output = document.getElementById("outputjum");
+
+            if (isNaN(hasil)) {
+                output.innerText = "Tidak Ada Jawaban! Isi terlebih dahulu.";
+            } else if (hasil === jum1 + jum2) {
+                output.innerText = "Jawaban Benar!";
+            } else {
+                output.innerText = "Jawaban Salah!";
             }
-        </script>
-    </div>
-    </p>
+        }
 
+        function randomkur() {
+            const kur1 = Math.floor(Math.random() * 16);
+            const kur2 = Math.floor(Math.random() * 16);
+            document.getElementById("kur1").value = kur1;
+            document.getElementById("kur2").value = kur2;
+            document.getElementById("hasilkur").value = "";
+            document.getElementById("outputkur").innerText = "";
+        }
+
+        function cekkur() {
+            const kur1 = Number(document.getElementById("kur1").value);
+            const kur2 = Number(document.getElementById("kur2").value);
+            const hasil = Number(document.getElementById("hasilkur").value);
+            const output = document.getElementById("outputkur");
+
+            if (isNaN(hasil)) {
+                output.innerText = "Tidak Ada Jawaban! Isi terlebih dahulu.";
+            } else if (hasil === kur1 - kur2) {
+                output.innerText = "Jawaban Benar!";
+            } else {
+                output.innerText = "Jawaban Salah!";
+            }
+        }
+
+        function randombil() {
+            const hasilbil = Math.floor(Math.random() * 900) + 100; // 100 - 999
+            document.getElementById("hasilbil").value = hasilbil;
+            document.getElementById("outputbil").innerText = "";
+        }
+
+        function cekbil() {
+            const hasilbil = Number(document.getElementById("hasilbil").value);
+            const bil1 = Number(document.getElementById("bil1").value);
+            const bil2 = Number(document.getElementById("bil2").value);
+            const bil3 = Number(document.getElementById("bil3").value);
+            const output = document.getElementById("outputbil");
+
+            if (isNaN(hasilbil) || isNaN(bil1) || isNaN(bil2) || isNaN(bil3)) {
+                output.innerText = "Isi semua kolom terlebih dahulu!";
+                return;
+            }
+
+            const ratusan = Math.floor(hasilbil / 100);
+            const puluhan = Math.floor((hasilbil % 100) / 10);
+            const satuan = hasilbil % 10;
+
+            let result = "";
+
+            result += bil1 === ratusan ? "Jawaban Ratusan Benar!\n" : "Jawaban Ratusan Salah\n";
+            result += bil2 === puluhan ? "Jawaban Puluhan Benar!\n" : "Jawaban Puluhan Salah\n";
+            result += bil3 === satuan ? "Jawaban Satuan Benar!" : "Jawaban Satuan Salah";
+
+            output.innerText = result;
+        }
+    </script>
 </body>
 </html>

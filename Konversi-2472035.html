@@ -6,41 +6,125 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Konversi Mata Uang</title>
     <style>
-        body{
+        body {
             background-color: antiquewhite;
+            font-family: Arial, sans-serif;
+            color: #333;
         }
-        .box{
+        .container {
             background-color: white;
-            border: 2px solid black;
             width: 400px;
-            height: 450px;
-            align-items: center;
-            margin: auto;
+            margin: 50px auto;
+            padding: 20px;
+            border: 2px solid #555;
             text-align: center;
-            padding: 2px;
+            border-radius: 10px;
+        }
+        h2 {
+            color: #2575fc;
+        }
+        select, input {
+            width: 80%;
+            padding: 8px;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #2575fc;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 85%;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #e74c3c;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #555;
         }
     </style>
 </head>
 <body>
-    <div class="box">
-        <h2>Konvereter Mata Uang</h2>
+    <div class="container">
+        <h2>Konversi Mata Uang</h2>
+
+        <label>Jumlah Uang</label><br>
+        <input type="number" id="jumlah" placeholder="Masukkan jumlah uang"><br>
+
+        <label>Dari Mata Uang</label><br>
+        <select id="dari">
+            <option value="USD">Dollar Amerika (USD)</option>
+            <option value="IDR">Rupiah Indonesia (IDR)</option>
+            <option value="EUR">Euro (EUR)</option>
+            <option value="JPY">Yen Jepang (JPY)</option>
+            <option value="GBP">Pound Inggris (GBP)</option>
+            <option value="SGD">Dollar Singapura (SGD)</option>
+            <option value="AUD">Dollar Australia (AUD)</option>
+        </select><br>
+
+        <!-- Tombol tukar posisi -->
+        <button onclick="tukarMataUang()">Tukar Posisi Mata Uang</button>
         <br/>
-        <p>Jumlah Uang</p>
-        <input type="number" value="Jumlah Uang">
+        <label>Ke Mata Uang</label><br>
+        <select id="ke">
+            <option value="USD">Dollar Amerika (USD)</option>
+            <option value="IDR">Rupiah Indonesia (IDR)</option>
+            <option value="EUR">Euro (EUR)</option>
+            <option value="JPY">Yen Jepang (JPY)</option>
+            <option value="GBP">Pound Inggris (GBP)</option>
+            <option value="SGD">Dollar Singapura (SGD)</option>
+            <option value="AUD">Dollar Australia (AUD)</option>
+        </select><br>
+
+        <button onclick="konversi()">Tukar Mata Uang</button>
         <br/>
-        <p>Dari Mata Uang</p>
-        <input type="select">
-        <select>
-            <option value=""></option>
-        </select>
-        <br/><br/>
-        <button>Tukar Mata uang</button>
-        <p>Ke Mata Uang</p>
+        <div class="result" id="hasil"></div>
     </div>
 
     <script>
+        const kurs = {
+            USD: { nama: 'Dollar Amerika', nilai: 1 },
+            IDR: { nama: 'Rupiah Indonesia', nilai: 16500 },
+            EUR: { nama: 'Euro', nilai: 18500 / 16500 },
+            JPY: { nama: 'Yen Jepang', nilai: 165 / 16500 },
+            GBP: { nama: 'Pound Inggris', nilai: 22000 / 16500 },
+            SGD: { nama: 'Dollar Singapura', nilai: 12750 / 16500 },
+            AUD: { nama: 'Dollar Australia', nilai: 10500 / 16500 }
+        };
 
+        function konversi() {
+            let jumlah = parseFloat(document.getElementById("jumlah").value);
+            let dari = document.getElementById("dari").value;
+            let ke = document.getElementById("ke").value;
+            let hasilDiv = document.getElementById("hasil");
+
+            if (isNaN(jumlah) || jumlah <= 0) {
+                hasilDiv.innerText = "Masukkan jumlah uang yang benar!";
+                return;
+            }
+
+            if (dari === ke) {
+                hasilDiv.innerText = "Mata uang sama, hasil: " + jumlah.toFixed(2);
+                return;
+            }
+
+            let nilaiUSD = jumlah / kurs[dari].nilai;
+            let hasil = nilaiUSD * kurs[ke].nilai;
+
+            hasilDiv.innerText = `${jumlah} ${dari} = ${hasil.toFixed(2)} ${ke}`;
+        }
+
+        function tukarMataUang() {
+            let dari = document.getElementById("dari");
+            let ke = document.getElementById("ke");
+
+            let sementara = dari.value;
+            dari.value = ke.value;
+            ke.value = sementara;
+        }
     </script>
-    
 </body>
 </html>

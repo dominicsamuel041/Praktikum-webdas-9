@@ -6,28 +6,156 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hangman</title>
     <style>
-        body{
-            background-color: lightblue;
-            font: Arial;
-        }
+        body {
+      background-color: lightblue;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 30px;
+      gap: 40px;
+    }
+    .gambar {
+      flex: 1;
+      text-align: center;
+    }
+    .game {
+      flex: 1;
+      text-align: center;
+    }
+    #jawaban {
+      font-size: 24px;
+      letter-spacing: 10px;
+      margin: 10px 0;
+    }
+    input {
+      padding: 8px;
+      font-size: 18px;
+      width: 50px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    #info {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    #gambar {
+      width: 250px;
+      height: auto;
+      border: 2px solid #000;
+      background-color: white;
+    }
     </style>
 </head>
 <body>
-    <div class="hangman">
-        <img src="img/10.jpg">
+    <h2 style="text-align:center;">Game Hangman</h2>
+  
+    <div class="container">
+        <div class="gambar">
+            <img id="gambar" src="img/0.jpg" alt="Gambar Hangman" />
+        </div>
+  
+      <!-- Game di kanan -->
+        <div class="game">
+            <p id="petunjuk">Clue: </p>
+            <p id="jawaban"></p>
+  
+            <input type="text" id="tebakan" maxlength="1" />
+            <button onclick="cekHuruf()">Tebak</button>
+  
+            <p id="info"></p>
+        </div>
     </div>
+  
     <script>
-        let answers = ["PYTHON","JAVASCRIPT","TAILWIND","REACT","LARAVEL"];
-        let clues = [
-        "A versatile programming language named after a snake, loved for its simplicity.",
-        "the language that brings interactivity to websites, often abbreviated as JS.",
-        "A utility-first CSS framework for rapidly building custom designs.",
-        "A Javascript library for building dynamic user interfaces, created by Facebook",
-        "A PHP framework known for elegant syntax and robust web development tools.",
+        var kata = ["PYTHON", "JAVASCRIPT", "TAILWIND", "REACT", "LARAVEL"];
+        var petunjuk = [
+            "Bahasa pemrograman dinamai dari ular.",
+            "Bahasa interaktif untuk web.",
+            "CSS framework dengan utility.",
+            "Library UI dari Facebook.",
+            "Framework PHP populer.",
         ];
-        var clue = Math.floor(clues)
-        document.write(clue)
+  
+        var nyawa = 10;
+        var soal = "";
+        var clue = "";
+        var tebakan = "";
+  
+        window.onload = function () {
+            var index = Math.floor(Math.random() * kata.length);
+            soal = kata[index];
+            clue = petunjuk[index];
+            tebakan = "_".repeat(soal.length);
+  
+            document.getElementById("petunjuk").innerText = "Clue: " + clue;
+            tampilkanJawaban();
+            updateStatus();
+            gantiGambar();
+        };
+  
+        function tampilkanJawaban() {
+            document.getElementById("jawaban").innerText = tebakan.split("").join(" ");
+        }
+  
+        function updateStatus() {
+            document.getElementById("info").innerText = "Nyawa: " + nyawa;
+        }
+  
+        function gantiGambar() {
+            document.getElementById("gambar").src = "img/" + nyawa + ".jpg";
+        }
+  
+        function cekHuruf() {
+            var input = document.getElementById("tebakan").value.toUpperCase();
+            document.getElementById("tebakan").value = "";
+  
+            if (input === "" || input.length !== 1 || !/[A-Z]/.test(input)) {
+                alert("Masukkan satu huruf A-Z.");
+                return;
+            }
+  
+            var baru = "";
+            var benar = false;
+  
+            for (var i = 0; i < soal.length; i++) {
+                if (soal[i] === input) {
+                    baru += input;
+                    benar = true;
+                } else {
+                    baru += tebakan[i];
+                }
+            }
+  
+            tebakan = baru;
+            tampilkanJawaban();
+  
+            if (!benar) {
+                nyawa--;
+                gantiGambar();
+            }
+  
+            if (tebakan === soal) {
+                document.getElementById("info").innerText = "Selamat! Kamu menang!";
+                document.getElementById("tebakan").disabled = true;
+            } else if (nyawa <= 0) {
+                document.getElementById("info").innerText = "Kamu kalah! Jawabannya: " + soal;
+                gantiGambar();
+                document.getElementById("tebakan").disabled = true;
+            } else {
+                updateStatus();
+            }
+        }
     </script>
-    
-</body>
+  </body>
 </html>
