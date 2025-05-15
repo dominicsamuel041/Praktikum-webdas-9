@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        h3{
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="penjumlahan">
+        <h3>Penjumlahan</h3>
+        <button onclick="random()" id="refresh">Refresh</button>
+        <br/><br/>
+        <span>
+            <input type="number" id="jum1"> + <input type="number" id="jum2"> =
+            <input width="100px" id="hasiljum">
+            <button onclick="cekjum()" id="cekjum">Cek Hasil</button> 
+        </span>
+    </div>
+    <script>
+        function random() {
+            let jum1 = Math.floor(Math.random() * 16);
+            let jum2 = Math.floor(Math.random() * 16);
+            document.getElementById("jum1").value = jum1
+            document.getElementById("jum2").value = jum2
+        }
+    </script>
+
+
+    <div class="pengurangan">
+        <h3>Pengurangan</h3>
+        <button onclick="random()" id="refresh">Refresh</button>
+        <br/><br/>
+        <span>
+            <input type="number" id="kur1"> - <input type="number" id="kur2"> =
+            <input width="100px" id="hasiljum">
+            <button onclick="cekjum()" id="cekjum">Cek Hasil</button> 
+        </span>
+    </div>
+    <script>
+        function random() {
+            let jum1 = Math.floor(Math.random() * 16);
+            let jum2 = Math.floor(Math.random() * 16);
+            document.getElementById("jum1").value = jum1
+            document.getElementById("jum2").value = jum2
+        }
+    </script>
+
+
+
+    <div class="pengurangan">
+        <h3>Pengurangan</h3>
+        <button onclick="random()" id="refresh">Refresh</button>
+        <br/><br/>
+        <span>
+            <input type="number" id="jum1"> - <input type="number" id="jum2"> =
+            <input width="100px" id="hasiljum">
+            <button onclick="cekjum()" id="cekjum">Cek Hasil</button> 
+        </span>
+    </div>
+    <script>
+        function random() {
+            let jum1 = Math.floor(Math.random() * 16);
+            let jum2 = Math.floor(Math.random() * 16);
+            document.getElementById("jum1").value = jum1
+            document.getElementById("jum2").value = jum2
+        }
+    </script>
+
+    
+    <br/><br/>
+    <p>
+    <div class="output">
+        <script>
+            function cekjum() {
+                if (hasiljum = (jum1 + jum2)) {
+                    result = "Jawaban Benar!!!"
+                } else if (hasiljum != (jum1 + jum2)){
+                    result = "Jawaban Salah"
+                } else {
+                    result = "Tidak Ada Jawaban!!! Isi Terlebih Dahulu"
+                }
+                document.
+            }
+        </script>
+    </div>
+    </p>
+
+</body>
+</html>
